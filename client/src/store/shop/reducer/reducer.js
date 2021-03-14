@@ -1,44 +1,28 @@
-import {
-  UPDATE_PRODUCTS,
-  ADD_TO_CART,
-  UPDATE_CART_QUANTITY,
-  REMOVE_FROM_CART,
-  ADD_MULTIPLE_TO_CART,
-  UPDATE_CATEGORIES,
-  UPDATE_CURRENT_CATEGORY,
-  CLEAR_CART,
-  TOGGLE_CART
-} from "./actions";
-const initialState = {
-  products: [],
-  cart: [],
-  cartOpen: false,
-  categories: [],
-  currentCategory: '',
-}
+import * as CONST from "../constants";
+import { useReducer } from "react";
 
-export const reducer = (state = initialState, action) => {
+export default (state, action) => {
   switch (action.type) {
-    case UPDATE_PRODUCTS:
+    case CONST.UPDATE_PRODUCTS:
       return {
         ...state,
         products: [...action.products],
       };
 
-    case ADD_TO_CART:
+    case CONST.ADD_TO_CART:
       return {
         ...state,
         cartOpen: true,
         cart: [...state.cart, action.product],
       };
 
-    case ADD_MULTIPLE_TO_CART:
+    case CONST.ADD_MULTIPLE_TO_CART:
       return {
         ...state,
         cart: [...state.cart, ...action.products],
       };
 
-    case UPDATE_CART_QUANTITY:
+    case CONST.UPDATE_CART_QUANTITY:
       return {
         ...state,
         cartOpen: true,
@@ -50,7 +34,7 @@ export const reducer = (state = initialState, action) => {
         })
       };
 
-    case REMOVE_FROM_CART:
+    case CONST.REMOVE_FROM_CART:
       let newState = state.cart.filter(product => {
         return product._id !== action._id;
       });
@@ -61,26 +45,26 @@ export const reducer = (state = initialState, action) => {
         cart: newState
       };
 
-    case CLEAR_CART:
+    case CONST.CLEAR_CART:
       return {
         ...state,
         cartOpen: false,
         cart: []
       };
 
-    case TOGGLE_CART:
+    case CONST.TOGGLE_CART:
       return {
         ...state,
         cartOpen: !state.cartOpen
       };
 
-    case UPDATE_CATEGORIES:
+    case CONST.UPDATE_CATEGORIES:
       return {
         ...state,
         categories: [...action.categories],
       };
 
-    case UPDATE_CURRENT_CATEGORY:
+    case CONST.UPDATE_CURRENT_CATEGORY:
       return {
         ...state,
         currentCategory: action.currentCategory
